@@ -1,4 +1,4 @@
-const { connectDB } = require('./src/configs/db');
+const { connectDB } = require('./database/db');
 const express = require("express");
 const routes = require("./routes");
 const app = express();
@@ -12,10 +12,10 @@ async function startServer() {
     try {
         await connectDB();  // Assegura que a conexão com o banco está pronta
         app.listen(process.env.PORT, () => {
-            console.log(`Servidor rodando na porta: ${process.env.PORT}`);
+            console.log(`Server is running on port: ${process.env.PORT}`);
         });
     } catch (error) {
-        console.error("Falha ao conectar com o banco de dados: ", error);
+        console.error("Failed to start the server: ", error);
         process.exit(1);  // Encerra a aplicação se a conexão com o banco falhar
     }
 }
