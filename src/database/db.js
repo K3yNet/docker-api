@@ -10,9 +10,7 @@ async function connectDB() {
 
     try {
         await mongoose.connect(process.env.MONGO_HOST, {
-            dbName: process.env.MONGO_DATABASE,
-            useNewUrlParser: true,
-            useUnifiedTopology: true
+            dbName: process.env.MONGO_DATABASE
         });
 
         singleton = mongoose.connection;
