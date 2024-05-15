@@ -1,5 +1,5 @@
-const { MongoClient } = require('mongodb');
-require('dotenv').config();
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 let singleton;
 
@@ -9,20 +9,24 @@ async function connectDB() {
     }
 
     try {
-        const client = new MongoClient(process.env.MONGO_HOST);
-        await client.connect();
-        singleton = client.db(process.env.MONGO_DATABASE);
+        await mongoose.connect(process.env.MONGO_HOST, {
+            dbName: process.env.MONGO_DATABASE,
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+
+        singleton = mongoose.connection;
         console.log("Connection to MongoDB established successfully.");
         return singleton;
     } catch (error) {
         console.error("Failed to connect to MongoDB", error);
-        throw error; // Propaga o erro para cima para que o chamador possa tratá-lo
+        throw error; // Propagates the error upwards so that the caller can handle it
     }
 }
 
 async function disconnectDB() {
     if (singleton) {
-        await singleton.client.close();
+        await mongoose.disconnect();
         singleton = null;
         console.log("Connection to MongoDB closed.");
     }
