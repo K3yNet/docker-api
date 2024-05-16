@@ -7,7 +7,7 @@ routes.get("/health", (req, res) => {
     return res.send("Connected with sucsess!");
 });
 
-routes.post("/book", BookController.store);
+routes.post("/books", BookController.store);
 routes.get("/books", BookController.index);
 routes.get("/books/:id", BookController.show);
 routes.put("/books/:id", BookController.update);
