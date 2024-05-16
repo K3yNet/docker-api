@@ -1,52 +1,52 @@
 const request = require('supertest');
-const app = require('../path/to/your/server'); // Atualize com o caminho correto do seu app Express
+const { app } = require("../src/server");
 
 describe('Book API', () => {
     let newBook;
 
-    it('POST /book - create a book', async () => {
+    it('POST /books - create a book', async () => {
         const response = await request(app)
-            .post('/book')
+            .post('/books')
             .send({
-                title: "1984",
-                author: "George Orwell",
-                pages: 328,
-                genres: ["dystopian", "political fiction"],
-                rating: 9
+                title: "Test title",
+                author: "Test author",
+                pages: 777,
+                genres: ["Test genre"],
+                rating: 7
             });
         expect(response.statusCode).toBe(201);
-        expect(response.body.title).toBe("1984");
+        expect(response.body.title).toBe("Test title");
         newBook = response.body; // Salva o livro criado para usar nos outros testes
     });
 
-    it('GET /book - get all books', async () => {
+    it('GET /books - get all books', async () => {
         const response = await request(app)
-            .get('/book');
+            .get('/books');
         expect(response.statusCode).toBe(200);
         expect(Array.isArray(response.body)).toBe(true);
     });
 
-    it('GET /book/:id - get a book by id', async () => {
+    it('GET /books/:id - get a book by id', async () => {
         const response = await request(app)
-            .get(`/book/${newBook._id}`);
+            .get(`/books/${newBook._id}`);
         expect(response.statusCode).toBe(200);
-        expect(response.body.title).toBe("1984");
+        expect(response.body.title).toBe("Test title");
     });
 
-    it('PUT /book/:id - update a book', async () => {
+    it('PUT /books/:id - update a book', async () => {
         const response = await request(app)
-            .put(`/book/${newBook._id}`)
+            .put(`/books/${newBook._id}`)
             .send({
-                rating: 10
+                rating: 77
             });
         expect(response.statusCode).toBe(200);
-        expect(response.body.message).toBe("Book updated!");
+        expect(response.body.rating).toBe(77)
     });
 
-    it('DELETE /book/:id - delete a book', async () => {
+    it('DELETE /books/:id - delete a book', async () => {
         const response = await request(app)
-            .delete(`/book/${newBook._id}`);
-        expect(response.statusCode).toBe(200);
-        expect(response.body.message).toBe("Book deleted!");
+            .delete(`/books/${newBook._id}`);
+        expect(response.statusCode).toBe(204);
+        expect(response.body).toEqual({});
     });
 });
