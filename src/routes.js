@@ -3,10 +3,10 @@ const routes = new Router();
 
 const BookController = require("./app/controllers/bookController");
 
-routes.get("/health", (req, res) => {
-    return res.send("Connected with sucsess!");
-});
+// Health Check
+routes.get("/health", (req, res) => res.send("Connected with success!"));
 
+// Book Routes
 routes.post("/books", BookController.store);
 routes.get("/books", BookController.index);
 routes.get("/books/:id", BookController.show);
