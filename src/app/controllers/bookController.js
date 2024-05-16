@@ -1,14 +1,16 @@
-const bookModel = require("../models/bookModel");
+const BookModel = require("../models/BookModel");
 
-class bookController {
+class BookController {
     async store(req, res) {
-        const createdBook = await bookModel.create(req.body);
+        const createdBook = await BookModel.create(req.body);
 
         return res.send(createdBook);
     }
 
-    async index() {
+    async index(req, res) {
+        const books = await BookModel.find();
 
+        return res.send(books);
     }
 
     async show() {
@@ -24,4 +26,4 @@ class bookController {
     }
 }
 
-module.exports = new bookController();
+module.exports = new BookController();

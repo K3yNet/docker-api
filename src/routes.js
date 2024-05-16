@@ -1,12 +1,13 @@
 const { Router } = require("express");
 const routes = new Router();
 
-const bookController = require("./app/controllers/bookController");
+const BookController = require("./app/controllers/BookController");
 
 routes.get("/health", (req, res) => {
     return res.send("Connected with sucsess!");
 });
 
-routes.post("/book", bookController.store);
+routes.post("/book", BookController.store);
+routes.get("/book", BookController.index);
 
 module.exports = routes;
