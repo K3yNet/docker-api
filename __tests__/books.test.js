@@ -1,5 +1,6 @@
 const request = require('supertest');
 const { app } = require("../src/server");
+const { disconnectDB } = require('../src/database/db');
 
 describe('Book API', () => {
     let newBook;
@@ -49,4 +50,9 @@ describe('Book API', () => {
         expect(response.statusCode).toBe(204);
         expect(response.body).toEqual({});
     });
+
+    afterAll(async () => {
+        await disconnectDB();
+    });
+
 });
