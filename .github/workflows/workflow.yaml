@@ -28,7 +28,7 @@ jobs:
         context: .
         file: .docker/Dockerfile.prod
         push: true
-        tags: k3ynet:latest  # Substitua user/repo pela sua conta/repositório no Docker Hub
+        tags: k3ynet/comp-api:latest  # Substitua user/repo pela sua conta/repositório no Docker Hub
 
     - name: Build and push Docker Compose services
       run: docker compose -f .docker/docker-compose.prod.yaml --env-file .env up -d --build
