@@ -1,4 +1,4 @@
-const BookModel = require("../models/BookModel");
+const BookModel = require("../models/bookModel");
 
 class BookController {
     async store(req, res) {

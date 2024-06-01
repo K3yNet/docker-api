@@ -1,6 +1,6 @@
 FROM node:20.13.1
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copie o package.json e o package-lock.json
 COPY package*.json ./
@@ -9,10 +9,10 @@ COPY package*.json ./
 RUN npm install
 
 # Copie o restante do código da aplicação
-COPY . .
+COPY ./src ./src
 
 # Exponha a porta que o aplicativo irá rodar
 EXPOSE 3000
 
 # Comando para rodar o aplicativo
-CMD [ "node", "src/server.js" ]
+CMD [ "npm", "run", "start" ]

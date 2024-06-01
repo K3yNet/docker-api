@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const routes = new Router();
 
-const BookController = require("./app/controllers/bookController");
+const BookController = require("./app/controllers/bookController.js");
 
 // Health Check
 routes.get("/health", (req, res) => res.send("Connected with success!"));
