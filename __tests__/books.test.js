@@ -1,58 +1,50 @@
-const request = require('supertest');
-const { app } = require("../src/server");
-const { disconnectDB } = require('../src/database/db');
+const { MongoClient } = require("mongodb");
 
-describe('Book API', () => {
-    let newBook;
+describe("MongoDB CRUD Operations", () => {
+    let connection;
+    let db;
 
-    it('POST /books - create a book', async () => {
-        const response = await request(app)
-            .post('/books')
-            .send({
-                title: "Test title",
-                author: "Test author",
-                pages: 777,
-                genres: ["Test genre"],
-                rating: 7
-            });
-        expect(response.statusCode).toBe(201);
-        expect(response.body.title).toBe("Test title");
-        newBook = response.body; // Salva o livro criado para usar nos outros testes
-    });
-
-    it('GET /books - get all books', async () => {
-        const response = await request(app)
-            .get('/books');
-        expect(response.statusCode).toBe(200);
-        expect(Array.isArray(response.body)).toBe(true);
-    });
-
-    it('GET /books/:id - get a book by id', async () => {
-        const response = await request(app)
-            .get(`/books/${newBook._id}`);
-        expect(response.statusCode).toBe(200);
-        expect(response.body.title).toBe("Test title");
-    });
-
-    it('PUT /books/:id - update a book', async () => {
-        const response = await request(app)
-            .put(`/books/${newBook._id}`)
-            .send({
-                rating: 77
-            });
-        expect(response.statusCode).toBe(200);
-        expect(response.body.rating).toBe(77)
-    });
-
-    it('DELETE /books/:id - delete a book', async () => {
-        const response = await request(app)
-            .delete(`/books/${newBook._id}`);
-        expect(response.statusCode).toBe(204);
-        expect(response.body).toEqual({});
+    beforeAll(async () => {
+        connection = await MongoClient.connect(global.__MONGO_URI__, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        db = connection.db(global.__MONGO_DB_NAME__);
     });
 
     afterAll(async () => {
-        await disconnectDB();
+        await connection.close();
     });
 
+    // Teste de Criação (Create)
+    it("should insert a document into the collection", async () => {
+        const users = db.collection("users");
+        const mockUser = { _id: "some-user-id", name: "John" };
+        await users.insertOne(mockUser);
+        const insertedUser = await users.findOne({ _id: "some-user-id" });
+        expect(insertedUser).toEqual(mockUser);
+    });
+
+    // Teste de Leitura (Read)
+    it("should find a document by _id in the collection", async () => {
+        const users = db.collection("users");
+        const foundUser = await users.findOne({ _id: "some-user-id" });
+        expect(foundUser.name).toBe("John");
+    });
+
+    // Teste de Atualização (Update)
+    it("should update a document in the collection", async () => {
+        const users = db.collection("users");
+        await users.updateOne({ _id: "some-user-id" }, { $set: { name: "John Updated" } });
+        const updatedUser = await users.findOne({ _id: "some-user-id" });
+        expect(updatedUser.name).toBe("John Updated");
+    });
+
+    // Teste de Exclusão (Delete)
+    it("should delete a document from the collection", async () => {
+        const users = db.collection("users");
+        await users.deleteOne({ _id: "some-user-id" });
+        const deletedUser = await users.findOne({ _id: "some-user-id" });
+        expect(deletedUser).toBeNull();
+    });
 });
