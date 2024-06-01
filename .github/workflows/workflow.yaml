@@ -14,14 +14,19 @@ jobs:
 
     services:
       mongodb:
-        image: mongo:latest
+        image: mongo:4.4.18
+        container_name: comp-db
+        #restart: unless-stopped
         ports:
-          - 27017:27017
-        options: >-
-          --health-cmd "mongo --eval 'db.runCommand({ ping: 1 })'"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          - "28017:27017"
+        environment:
+          MONGO_INITDB_ROOT_USERNAME: "root"
+          MONGO_INITDB_ROOT_PASSWORD: "root"
+          MONGO_INITDB_DATABASE: library
+        volumes:
+          - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+          - .volumes/database/mongodb:/data/db
+        tty: true
 
     steps:
     - name: Checkout repository
