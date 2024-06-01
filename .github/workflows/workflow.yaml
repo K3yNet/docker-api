@@ -12,17 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      mongodb:
-        image: mongo:latest
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd "echo 'db.runCommand({ ping: 1 })' | mongo localhost/test --quiet"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -34,13 +23,6 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-
-    - name: Wait for MongoDB to be ready
-      run: |
-        until nc -z localhost 27017; do
-          echo "Waiting for MongoDB...";
-          sleep 1;
-        done
 
     - name: Run tests
       run: npm test
