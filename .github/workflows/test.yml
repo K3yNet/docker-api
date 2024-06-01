@@ -37,6 +37,11 @@ jobs:
           sleep 2
         done
 
+    - name: Set environment variables
+      run: |
+        echo "MONGO_HOST=mongodb://localhost:27017" >> $GITHUB_ENV
+        echo "MONGO_DATABASE=library" >> $GITHUB_ENV
+
     - name: Run tests
       run: npm test
 
