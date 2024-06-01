@@ -15,8 +15,6 @@ jobs:
     services:
       mongodb:
         image: mongo:4.4.18
-        container_name: comp-db
-        #restart: unless-stopped
         ports:
           - "28017:27017"
         environment:
