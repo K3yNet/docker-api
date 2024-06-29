@@ -1,0 +1,53 @@
+Comandos para Contêineres:
+
+- Listar contêineres em execução:
+  docker ps
+  Este comando lista todos os contêineres Docker que estão atualmente em execução no seu sistema.
+
+- Listar todos os contêineres (incluindo parados):
+  docker ps -a
+  Este comando lista todos os contêineres Docker, tanto os que estão em execução quanto os que estão parados, no seu sistema.
+
+- Criar e iniciar um contêiner:
+  docker run <--name & -d & -p PORT:PORT VERSION>
+  Este comando cria e inicia um contêiner Docker.
+
+- Iniciar um contêiner:
+  docker start <CONTAINER ID or NAME>
+  Este comando inicia um contêiner Docker que está parado, especificado pelo seu ID ou nome.
+
+- Parar um contêiner:
+  docker stop <CONTAINER ID or NAME>
+  Este comando para um contêiner Docker que está em execução, especificado pelo seu ID ou nome.
+
+- Forçar a parada de um contêiner:
+  docker kill <CONTAINER ID or NAME>
+  Este comando força a parada imediata de um contêiner Docker, especificado pelo seu ID ou nome.
+
+- Remover um contêiner:
+  docker rm <CONTAINER ID or NAME>
+  Este comando remove um contêiner Docker, especificado pelo seu ID ou nome. O contêiner deve estar parado para ser removido.
+
+Comandos para Imagens:
+
+- Listar imagens Docker:
+  docker images
+  Este comando lista todas as imagens Docker que estão armazenadas localmente no seu sistema.
+
+- Remover uma imagem:
+  docker rmi <IMAGE ID or REPOSITORY:TAG>
+  Este comando remove uma imagem Docker específica, especificada pelo seu ID ou pelo nome do repositório e tag.
+
+- Remover imagens não utilizadas (dangling images):
+  docker image prune
+  Este comando remove todas as imagens Docker que não estão associadas a nenhum contêiner em execução.
+
+Outros Comandos Úteis:
+
+- Visualizar os logs de um contêiner:
+  docker logs <CONTAINER ID or NAME>
+  Este comando exibe os logs de um contêiner Docker específico, especificado pelo seu ID ou nome.
+
+- Inspecionar detalhes de um contêiner:
+  docker inspect <CONTAINER ID or NAME>
+  Este comando fornece informações detalhadas sobre um contêiner Docker específico, especificado pelo seu ID ou nome.
