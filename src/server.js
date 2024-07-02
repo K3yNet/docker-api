@@ -6,6 +6,7 @@ require("dotenv").config();
 
 const app = express();
 app.use(express.json());
+app.use(express.static('public'));
 app.use(routes);
 
 async function startServer() {
@@ -24,5 +25,3 @@ async function startServer() {
 startServer();
 
 module.exports = { app, startServer };
-
-

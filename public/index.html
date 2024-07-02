@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de Livros</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Biblioteca de Livros</h1>
+    <div id="book-form">
+        <h2>Adicionar Livro</h2>
+        <form id="add-book-form">
+            <input type="text" id="title" placeholder="Título" required>
+            <input type="text" id="author" placeholder="Autor" required>
+            <input type="number" id="pages" placeholder="Páginas" required>
+            <input type="text" id="genres" placeholder="Gêneros (separados por vírgula)" required>
+            <input type="number" id="rating" placeholder="Nota" required>
+            <button type="submit">Adicionar Livro</button>
+        </form>
+    </div>
+    <div id="book-list">
+        <h2>Lista de Livros</h2>
+        <ul id="books"></ul>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
