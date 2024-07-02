@@ -44,6 +44,18 @@ button:hover {
     background: #0056b3;
 }
 
+#books li button.delete {
+    margin-left: 10px;
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+#books li button.update {
+    margin-left: 10px;
+    background-color: #3498db;
+    color: #fff;
+}
+
 ul {
     list-style: none;
     padding: 0;
