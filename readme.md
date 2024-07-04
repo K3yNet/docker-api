@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Projeto Node.js com MongoDB usando Docker Compose</title>
+  <h1>Projeto Node.js com MongoDB usando Docker Compose</h1>
 </head>
 <body>
-
-<h1>Projeto Node.js com MongoDB usando Docker Compose</h1>
 
 <p>Este projeto demonstra como configurar e executar uma aplicação Node.js com MongoDB utilizando Docker Compose.</p>
 
