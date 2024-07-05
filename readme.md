@@ -15,8 +15,8 @@
 
 <ol>
   <li><strong>Clone o repositório:</strong></li>
-  <pre><code>git clone &lt;url-do-seu-repositório&gt;
-cd &lt;nome-do-seu-projeto&gt;
+  <pre><code>git clone &lt;https://github.com/K3yNet/nodejs-app.git&gt;
+cd &lt;nodejs-app&gt;
   </code></pre>
 
   <li><strong>Inicie os contêineres usando Docker Compose:</strong></li>
@@ -24,7 +24,7 @@ cd &lt;nome-do-seu-projeto&gt;
   <pre><code>docker-compose up -d
   </code></pre>
 
-  <p>Isso irá construir a imagem do Node.js conforme especificado no Dockerfile e iniciar os contêineres do Node.js e MongoDB, ambos conectados à rede <code>custom-nodejs-network</code>.</p>
+  <p>Isso irá construir a imagem do Node.js conforme especificado no Dockerfile e iniciar os contêineres do Node.js e MongoDB, ambos conectados à rede <code>nodejs-network</code>.</p>
 
   <li><strong>Acesse a aplicação:</strong></li>
   <p>Abra seu navegador e vá para <a href="http://localhost:3000">http://localhost:3000</a> para acessar a aplicação Node.js.</p>
