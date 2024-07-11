@@ -51,3 +51,7 @@ Outros Comandos Úteis:
 - Inspecionar detalhes de um contêiner:
   docker inspect <CONTAINER ID or NAME>
   Este comando fornece informações detalhadas sobre um contêiner Docker específico, especificado pelo seu ID ou nome.
+
+- Buildar uma imagem:
+  docker build -t <IMAGE NAME> <PATH TO DOCKERFILE or use . to autolocate>
+  Buildar uma imagem docker de um Dockerfile existente.
