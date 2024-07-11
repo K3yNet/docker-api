@@ -1,5 +1,5 @@
 {
-  "name": "mongo-api",
+  "name": "nodejs-app",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "Enzo Velo",
   "license": "ISC",
-  "description": "CompJunior project using mongo-api",
+  "description": "nodejs-app to study and test front-end back-end mongodb and docker",
   "dependencies": {
     "@shelf/jest-mongodb": "^4.3.2",
     "dotenv": "^16.4.5",
