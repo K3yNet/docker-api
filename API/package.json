@@ -8,7 +8,7 @@
     "dev": "nodemon src/server.js"
   },
   "keywords": [],
-  "author": "Enzo Velo",
+  "author": "Enzo V",
   "license": "ISC",
   "description": "nodejs-app to study and test front-end back-end mongodb and docker",
   "dependencies": {
