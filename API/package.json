@@ -13,6 +13,7 @@
   "description": "nodejs-app to study and test front-end back-end mongodb and docker",
   "dependencies": {
     "@shelf/jest-mongodb": "^4.3.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.3.4"
