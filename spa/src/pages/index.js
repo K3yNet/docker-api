@@ -1,17 +1,19 @@
 import { Inter } from "next/font/google";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from '../styles/Home.module.css'; // Importando o CSS
+import styles from '../styles/Home.module.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [data, setData] = useState([]);
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [pages, setPages] = useState('');
-  const [genres, setGenres] = useState('');
-  const [rating, setRating] = useState('');
+  const [data, setData] = useState([]); // Lista de livros a serem exibidos
+  const [book, setBook] = useState({
+    title: '',
+    author: '',
+    pages: '',
+    genres: '',
+    rating: ''
+  });
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -29,27 +31,39 @@ export default function Home() {
 
   const handleAddBook = async (event) => {
     event.preventDefault();
-    const genresArray = genres.split(',').map(genre => genre.trim());
+    const genresArray = book.genres.split(',').map(genre => genre.trim());
 
     try {
       const response = await axios.post('http://localhost:3030/books', {
-        title,
-        author,
-        pages: parseInt(pages, 10),
+        title: book.title,
+        author: book.author,
+        pages: parseInt(book.pages, 10),
         genres: genresArray,
-        rating: parseFloat(rating),
+        rating: parseFloat(book.rating),
       });
 
-      setData(prevData => [...prevData, response.data]); // Atualiza a lista de livros
-      setTitle('');
-      setAuthor('');
-      setPages('');
-      setGenres('');
-      setRating('');
+      const newData = [...data, response.data];
+      setData(newData);
+
+      setBook({
+        title: '',
+        author: '',
+        pages: '',
+        genres: '',
+        rating: ''
+      });
+
       setError(null);
+
     } catch (error) {
       setError(error.message);
     }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    const updatedBook = { ...book, [name]: value };
+    setBook(updatedBook);
   };
 
   return (
@@ -61,9 +75,10 @@ export default function Home() {
           <label htmlFor="title">Title:</label>
           <input
             id="title"
+            name="title"
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={book.title}
+            onChange={handleChange}
             required
           />
         </div>
@@ -71,9 +86,10 @@ export default function Home() {
           <label htmlFor="author">Author:</label>
           <input
             id="author"
+            name="author"
             type="text"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            value={book.author}
+            onChange={handleChange}
             required
           />
         </div>
@@ -81,9 +97,10 @@ export default function Home() {
           <label htmlFor="pages">Pages:</label>
           <input
             id="pages"
+            name="pages"
             type="number"
-            value={pages}
-            onChange={(e) => setPages(e.target.value)}
+            value={book.pages}
+            onChange={handleChange}
             required
           />
         </div>
@@ -91,9 +108,10 @@ export default function Home() {
           <label htmlFor="genres">Genres (comma-separated):</label>
           <input
             id="genres"
+            name="genres"
             type="text"
-            value={genres}
-            onChange={(e) => setGenres(e.target.value)}
+            value={book.genres}
+            onChange={handleChange}
             required
           />
         </div>
@@ -101,10 +119,11 @@ export default function Home() {
           <label htmlFor="rating">Rating:</label>
           <input
             id="rating"
+            name="rating"
             type="number"
             step="0.1"
-            value={rating}
-            onChange={(e) => setRating(e.target.value)}
+            value={book.rating}
+            onChange={handleChange}
             required
           />
         </div>
