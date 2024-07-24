@@ -15,6 +15,15 @@ export default function Home() {
     rating: ''
   });
   const [error, setError] = useState(null);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [bookToUpdate, setBookToUpdate] = useState({
+    id: '',
+    title: '',
+    author: '',
+    pages: '',
+    genres: '',
+    rating: ''
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +36,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, []);
+  }, [data]);
 
   const handleAddBook = async (event) => {
     event.preventDefault();
@@ -60,11 +69,32 @@ export default function Home() {
     }
   };
 
+  const handleDeleteBook = async (_id) => {
+    try {
+      await axios.delete(`http://localhost:3030/books/${_id}`);
+      const newData = data.filter(item => item._id !== _id);
+      setData(newData);
+      setError(null);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     const updatedBook = { ...book, [name]: value };
     setBook(updatedBook);
   };
+
+  function openModal(idPopup) {
+    const popup = document.getElementById(idPopup);
+    popup.showModal();
+  }
+
+  function closeModal(idPopup) {
+    const popup = document.getElementById(idPopup);
+    popup.close();
+  }
 
   return (
     <div className={styles.container}>
@@ -133,14 +163,41 @@ export default function Home() {
       <main>
         <ul className={styles.bookList}>
           {data.map(item => (
-            <li key={item.id} className={styles.bookItem}>
+            <li key={item._id} className={styles.bookItem}>
               <div className={styles.bookTitle}>{item.title}</div>
+
               <div className={styles.bookDetails}>
                 <div className={styles.bookDetail}><span>Author:</span> {item.author}</div>
                 <div className={styles.bookDetail}><span>Pages:</span> {item.pages}</div>
                 <div className={styles.bookDetail}><span>Genres:</span> {item.genres.join(', ')}</div>
                 <div className={styles.bookDetail}><span>Rating:</span> {item.rating}</div>
+
+                <button
+                  className={styles.updateButton}
+                  onClick={() => openModal('updatePopUp')}
+                >
+                  Update
+                </button>
+
+                <dialog id="updatePopUp">
+                  <h2>Título do Pop-up</h2>
+                  <p>Este é o conteúdo do pop-up.</p>
+                  <button
+                    className={styles.updateButton}
+                    onClick={() => closeModal('closeUpdatePopUp')}
+                  >
+                    Update
+                  </button>
+                </dialog>
+
+                <button
+                  className={styles.deleteButton}
+                  onClick={() => handleDeleteBook(item._id)}
+                >
+                  Delete
+                </button>
               </div>
+
             </li>
           ))}
         </ul>
